@@ -1,0 +1,30 @@
+{% load static %}
+<h2>TO DO LIST</h2>
+
+
+<form method = "POST", action = "/">
+{% csrf_token %}
+{{form.title}}
+<input type= "submit", name ="Create Task" >
+</form>
+
+
+{% comment %} <img src= "{% static 'images/bg.png' %}"> {% endcomment %}
+{%for task in tasks%}
+
+    <div>
+        {% comment %} <a href="{% url 'update_task' task.id %}">Update</a> {% endcomment %}
+        <a href="{% url 'update_task' task.id %}">Update</a>
+        <a href="{% url 'delete' task.id %}">Delete</a>
+        
+        {% if task.complete == True %}
+        <strike> <span>{{task}}</span> </strike>
+        {% else %}
+        <span>{{task}}</span>
+
+        {% endif %}
+
+
+    </div>
+
+{%endfor%}
